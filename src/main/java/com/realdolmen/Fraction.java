@@ -9,9 +9,13 @@ public class Fraction {
 
     }
 
-    public Fraction(int noemer, int teller) {
+    public Fraction(int teller, int noemer) {
         this.noemer = noemer;
         this.teller = teller;
+    }
+
+    public double asDouble(){
+        return ((double) teller) / noemer;
     }
 
     public int getNoemer() {
