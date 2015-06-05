@@ -10,13 +10,27 @@ public class Fraction {
     }
 
     public Fraction(int teller, int noemer) {
-        this.noemer = noemer;
+        if (noemer == 0) throw new ArithmeticException(("Noemer mag niet '0' zijn"));
+
         this.teller = teller;
+        this.noemer = noemer;
+        simplify();
     }
 
-    public double asDouble(){
+    public Fraction reciprocal(){
+        return new Fraction(this.noemer, this.teller);
+
+    void simplify(){
+        int gcf = Utilities.greatestCommonFactor(teller, noemer);
+        noemer /= gcf;
+        teller /= gcf;
+    }
+
+    public double tellerGedeeldDoorNoemerAsDouble(){
         return ((double) teller) / noemer;
     }
+
+
 
     public int getNoemer() {
         return noemer;
