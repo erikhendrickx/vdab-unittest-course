@@ -19,6 +19,14 @@ public class Fraction {
 
     public Fraction reciprocal(){
         return new Fraction(this.noemer, this.teller);
+    }
+
+    public Fraction multiply(Fraction that){
+        int multiplyNoemer = this.getNoemer() * that.getNoemer();
+        int multiplyTeller = this.getTeller() * that.getTeller();
+        Fraction result = new Fraction(multiplyTeller, multiplyNoemer);
+        return result;
+    }
 
     void simplify(){
         int gcf = Utilities.greatestCommonFactor(teller, noemer);
@@ -30,6 +38,17 @@ public class Fraction {
         return ((double) teller) / noemer;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Fraction)) return false;
+        Fraction that = (Fraction)obj;
+        return this.noemer == that.noemer && this.teller == that.teller;
+    }
+
+    @Override
+    public String toString() {
+        return noemer + "/" + teller;
+    }
 
 
     public int getNoemer() {
@@ -47,4 +66,5 @@ public class Fraction {
     public void setTeller(int teller) {
         this.teller = teller;
     }
+
 }
