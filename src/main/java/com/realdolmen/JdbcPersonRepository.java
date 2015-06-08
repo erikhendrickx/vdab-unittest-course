@@ -10,8 +10,7 @@ import java.sql.*;
  * See comments further in the code to give you some hints.
  */
 public class JdbcPersonRepository implements PersonRepository {
-    /**
-     CREATE TABLE `people` (
+    /* CREATE TABLE `people` (
      `id` int(11) NOT NULL AUTO_INCREMENT,
      `firstName` varchar(255) DEFAULT NULL,
      `lastName` varchar(255) DEFAULT NULL,
@@ -92,19 +91,24 @@ public class JdbcPersonRepository implements PersonRepository {
         private Person implode(ResultSet rs) throws SQLException {
             Person person = new Person(
                     rs.getString("firstName"),
-                    null, // Bug! Oops! rs.getString("lastName"),
+                    rs.getString("lastName"), // Null Bug! Oops! rs.getString("lastName"),
                     rs.getDate("birthDate"),
                     new Address(
                             rs.getString("street"),
                             rs.getString("number"),
-                            null
+                            new City(
+                                rs.getString("city"),
+                                rs.getString("postalCode")
+                            )
+                    )
+            );
+
+                           // null
 //                            Bug! Silly me!
 //                            new City(
 //                                    rs.getString("city"),
 //                                    rs.getString("postalCode")
 //                            )
-                    )
-            );
             person.setId(rs.getInt("id"));
             return person;
         }
@@ -128,7 +132,7 @@ public class JdbcPersonRepository implements PersonRepository {
      * @throws SQLException When a connection could not be made.
      */
     private static Connection createConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/test-DBUnit", "root", "");
     }
 
     private static <T> T execute(StatementExecutor<T> statementExecutor) {
