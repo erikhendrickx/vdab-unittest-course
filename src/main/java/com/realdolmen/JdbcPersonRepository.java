@@ -115,12 +115,13 @@ public class JdbcPersonRepository implements PersonRepository {
 
         private void explode(Person person, PreparedStatement ps) throws SQLException {
 //            Bug! Not paying attention!
-//            ps.setString(1, person.getFirstName());
+            ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setDate(3, new Date(person.getBirthDate().getTime()));
             ps.setString(4, person.getAddress().getStreet());
             ps.setString(5, person.getAddress().getNumber());
             ps.setString(6, person.getAddress().getCity().getName());
+            ps.setString(7, person.getAddress().getCity().getPostalCode());
 //            Bug! It's not my day!
 //            ps.setString(7, person.getAddress().getCity().getPostalCode());
         }

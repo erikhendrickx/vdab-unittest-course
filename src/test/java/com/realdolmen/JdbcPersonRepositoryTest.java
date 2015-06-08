@@ -42,6 +42,6 @@ public class JdbcPersonRepositoryTest {
     public void testCityCanBeFoundById() throws Exception{
         PersonRepository repository = new JdbcPersonRepository();
         Person person = repository.find(2);
-        fail(); // ToDo
+        assertEquals("CA", person.getAddress().getCity().getPostalCode());
     }
 }
